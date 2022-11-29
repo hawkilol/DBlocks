@@ -1,5 +1,6 @@
 package app;
 import java.io.FileWriter;
+
 import java.io.IOException;
 import java.time.LocalTime;
 
@@ -255,7 +256,7 @@ public class Main extends Db {
 //	    em.getTransaction().commit();
 //	}
 	
-	public static void versionTransCountCsv() throws IOException, InterruptedException {
+	public static void versionTransCountCsv() throws IOException, InterruptedException, ExecutionException {
 		ArrayList<Integer> listaInt = new ArrayList<Integer>();
 		MyCounter counter = new MyCounter();
 		
@@ -344,170 +345,170 @@ public class Main extends Db {
 	    Db.executeDropTable("pokemon");
 	    utilDb.populate(em, pok, transacCount/2);
 	    
-	    System.out.println("Exp1:");
+	    System.out.println("Exp1:.");
 	    //System.out.println("Avg:"+avgExp1(transacCount, utilDb, em, pok, pok1));
 	    //TimeUnit.Seconds.sleep(15);
-
-	    timesExp1.add(avgExp1(transacCount, utilDb, pok, pok1));
-	    //TimeUnit.Seconds.sleep(15);
+		expPasso1(utilDb, pok1, transacCount);
+// 	    timesExp1.add(avgExp1(transacCount, utilDb, pok, pok1));
+// 	    //TimeUnit.Seconds.sleep(15);
 	    
-	    System.out.println("Exp2:");
-	    //System.out.println("Avg:"+avgExp1(transacCount, utilDb, em, pok, pok1));
-	    timesExp1.add(avgExp2(transacCount, utilDb, pok, pok1));
-	    //TimeUnit.Seconds.sleep(15);
-
-	    
-	    System.out.println("Exp3:");
-	    //System.out.println("Avg:"+avgExp1(transacCount, utilDb, em, pok, pok1));
-	    timesExp1.add(avgExp3(transacCount, utilDb, pok, pok1));
-	    //TimeUnit.Seconds.sleep(15);
-
-	    System.out.println("Exp4:");
-	    //System.out.println("Avg:"+avgExp1(transacCount, utilDb, em, pok, pok1));
-	    timesExp1.add(avgExp4(transacCount, utilDb, pok, pok1));
-	    
-	    
-	    
-	    
-	    String[] timesRecord1 = new String[timesExp1.size()];
-
-	    for(int i = 0; i < timesExp1.size(); i++) {
-	    	timesRecord1[i] = timesExp1.get(i).toString();
-	    }
-	    
-	    listDataSet.add(timesRecord1);
-	    
-	    
-	    csvPath = "E:\\Downloads\\U-20220828T191257Z-001\\U\\bd2\\timesCSV\\"+transacCount+".csv";
-	    
-	    utilDb.saveToCsv(listDataSet, csvPath, true);
-	    System.out.println("ListaTimes: " + timesExp1);
-	    
-	    
-	    
-	    
-	    
-	    
-	    
-	    listDataSet.removeAll(listDataSet);
-	    timesExp1.removeAll(timesExp1);
-	    //10000 Transações
-	    transacCount = 10000;
-	    
-	    System.out.println("Transações: " + transacCount);
-	    Db.executeDropTable("pokemon");
-	    utilDb.populate(em, pok, transacCount/2);
-	    
-	    System.out.println("Exp1:");
-	    //System.out.println("Avg:"+avgExp1(transacCount, utilDb, em, pok, pok1));
-	    //TimeUnit.Seconds.sleep(15);
-
-	    timesExp1.add(avgExp1(transacCount, utilDb, pok, pok1));
-	    //TimeUnit.Seconds.sleep(15);
-	    
-	    System.out.println("Exp2:");
-	    //System.out.println("Avg:"+avgExp1(transacCount, utilDb, em, pok, pok1));
-	    timesExp1.add(avgExp2(transacCount, utilDb, pok, pok1));
-	    //TimeUnit.Seconds.sleep(15);
+// 	    System.out.println("Exp2:");
+// 	    //System.out.println("Avg:"+avgExp1(transacCount, utilDb, em, pok, pok1));
+// 	    timesExp1.add(avgExp2(transacCount, utilDb, pok, pok1));
+// 	    //TimeUnit.Seconds.sleep(15);
 
 	    
-	    System.out.println("Exp3:");
-	    //System.out.println("Avg:"+avgExp1(transacCount, utilDb, em, pok, pok1));
-	    timesExp1.add(avgExp3(transacCount, utilDb, pok, pok1));
-	    //TimeUnit.Seconds.sleep(15);
+// 	    System.out.println("Exp3:");
+// 	    //System.out.println("Avg:"+avgExp1(transacCount, utilDb, em, pok, pok1));
+// 	    timesExp1.add(avgExp3(transacCount, utilDb, pok, pok1));
+// 	    //TimeUnit.Seconds.sleep(15);
 
-	    System.out.println("Exp4:");
-	    //System.out.println("Avg:"+avgExp1(transacCount, utilDb, em, pok, pok1));
-	    timesExp1.add(avgExp4(transacCount, utilDb, pok, pok1));
+// 	    System.out.println("Exp4:");
+// 	    //System.out.println("Avg:"+avgExp1(transacCount, utilDb, em, pok, pok1));
+// 	    timesExp1.add(avgExp4(transacCount, utilDb, pok, pok1));
 	    
 	    
 	    
 	    
-	    timesRecord1 = new String[timesExp1.size()];
+// 	    String[] timesRecord1 = new String[timesExp1.size()];
 
-	    for(int i = 0; i < timesExp1.size(); i++) {
-	    	timesRecord1[i] = timesExp1.get(i).toString();
-	    }
+// 	    for(int i = 0; i < timesExp1.size(); i++) {
+// 	    	timesRecord1[i] = timesExp1.get(i).toString();
+// 	    }
 	    
-	    listDataSet.add(headerAux);
-	    listDataSet.add(timesRecord1);
+// 	    listDataSet.add(timesRecord1);
 	    
 	    
-	    csvPath = "E:\\Downloads\\U-20220828T191257Z-001\\U\\bd2\\timesCSV\\"+transacCount+".csv";
+// 	    csvPath = "E:\\Downloads\\U-20220828T191257Z-001\\U\\bd2\\timesCSV\\"+transacCount+".csv";
 	    
-	    utilDb.saveToCsv(listDataSet, csvPath, true);
-	    System.out.println("ListaTimes: " + timesExp1);
-	    
-	    listDataSet.removeAll(listDataSet);
-	    timesExp1.removeAll(timesExp1);
-	    //100000 Transações
-	    transacCount = 100000;
+// 	    utilDb.saveToCsv(listDataSet, csvPath, true);
+// 	    System.out.println("ListaTimes: " + timesExp1);
 	    
 	    
 	    
-	    System.out.println("Transações: " + transacCount);
-	    Db.executeDropTable("pokemon");
-	    utilDb.populate(em, pok, transacCount/2);
 	    
-	    System.out.println("Exp1:");
-	    //System.out.println("Avg:"+avgExp1(transacCount, utilDb, em, pok, pok1));
-	    //TimeUnit.Seconds.sleep(15);
+	    
+	    
+	    
+// 	    listDataSet.removeAll(listDataSet);
+// 	    timesExp1.removeAll(timesExp1);
+// 	    //10000 Transações
+// 	    transacCount = 10000;
+	    
+// 	    System.out.println("Transações: " + transacCount);
+// 	    Db.executeDropTable("pokemon");
+// 	    utilDb.populate(em, pok, transacCount/2);
+	    
+// 	    System.out.println("Exp1:");
+// 	    //System.out.println("Avg:"+avgExp1(transacCount, utilDb, em, pok, pok1));
+// 	    //TimeUnit.Seconds.sleep(15);
 
-	    timesExp1.add(avgExp1(transacCount, utilDb, pok, pok1));
-	    //TimeUnit.Seconds.sleep(15);
+// 	    timesExp1.add(avgExp1(transacCount, utilDb, pok, pok1));
+// 	    //TimeUnit.Seconds.sleep(15);
 	    
-	    System.out.println("Exp2:");
-	    //System.out.println("Avg:"+avgExp1(transacCount, utilDb, em, pok, pok1));
-	    timesExp1.add(avgExp2(transacCount, utilDb, pok, pok1));
-	    //TimeUnit.Seconds.sleep(15);
+// 	    System.out.println("Exp2:");
+// 	    //System.out.println("Avg:"+avgExp1(transacCount, utilDb, em, pok, pok1));
+// 	    timesExp1.add(avgExp2(transacCount, utilDb, pok, pok1));
+// 	    //TimeUnit.Seconds.sleep(15);
 
 	    
-	    System.out.println("Exp3:");
-	    //System.out.println("Avg:"+avgExp1(transacCount, utilDb, em, pok, pok1));
-	    timesExp1.add(avgExp3(transacCount, utilDb, pok, pok1));
-	    //TimeUnit.Seconds.sleep(15);
+// 	    System.out.println("Exp3:");
+// 	    //System.out.println("Avg:"+avgExp1(transacCount, utilDb, em, pok, pok1));
+// 	    timesExp1.add(avgExp3(transacCount, utilDb, pok, pok1));
+// 	    //TimeUnit.Seconds.sleep(15);
 
-	    System.out.println("Exp4:");
-	    //System.out.println("Avg:"+avgExp1(transacCount, utilDb, em, pok, pok1));
-	    timesExp1.add(avgExp4(transacCount, utilDb, pok, pok1));
+// 	    System.out.println("Exp4:");
+// 	    //System.out.println("Avg:"+avgExp1(transacCount, utilDb, em, pok, pok1));
+// 	    timesExp1.add(avgExp4(transacCount, utilDb, pok, pok1));
 	    
 	    
 	    
 	    
-	    timesRecord1 = new String[timesExp1.size()];
+// 	    timesRecord1 = new String[timesExp1.size()];
 
-	    for(int i = 0; i < timesExp1.size(); i++) {
-	    	timesRecord1[i] = timesExp1.get(i).toString();
-	    }
+// 	    for(int i = 0; i < timesExp1.size(); i++) {
+// 	    	timesRecord1[i] = timesExp1.get(i).toString();
+// 	    }
 	    
-	    listDataSet.add(headerAux);
-	    listDataSet.add(timesRecord1);
+// 	    listDataSet.add(headerAux);
+// 	    listDataSet.add(timesRecord1);
 	    
 	    
-	    csvPath = "E:\\Downloads\\U-20220828T191257Z-001\\U\\bd2\\timesCSV\\"+transacCount+".csv";
+// 	    csvPath = "E:\\Downloads\\U-20220828T191257Z-001\\U\\bd2\\timesCSV\\"+transacCount+".csv";
 	    
-	    utilDb.saveToCsv(listDataSet, csvPath, true);
-	    System.out.println("ListaTimes: " + timesExp1);
+// 	    utilDb.saveToCsv(listDataSet, csvPath, true);
+// 	    System.out.println("ListaTimes: " + timesExp1);
 	    
-//	    timesExp1.removeAll(timesExp1);
-//	    //10000
-//	    transacCount = 10000;
-//	    System.out.println("Transações: " + transacCount);
-//	    
-//	    System.out.println("Exp1:");
-//	    timesExp1.add(avgExp1(transacCount, utilDb, em, pok, pok1));	    
-//	    
-//	    System.out.println("Exp2:");
-//	    timesExp1.add(avgExp2(transacCount, utilDb, em, pok, pok1));
-//	    
-//	    
-//	    System.out.println("Exp3:");
-//	    timesExp1.add(avgExp3(transacCount, utilDb, em, pok, pok1));
-//	    
-//	    System.out.println("Exp4:");
-//	    timesExp1.add(avgExp4(transacCount, utilDb, em, pok, pok1));
-//	    
-//	    
+// 	    listDataSet.removeAll(listDataSet);
+// 	    timesExp1.removeAll(timesExp1);
+// 	    //100000 Transações
+// 	    transacCount = 100000;
+	    
+	    
+	    
+// 	    System.out.println("Transações: " + transacCount);
+// 	    Db.executeDropTable("pokemon");
+// 	    utilDb.populate(em, pok, transacCount/2);
+	    
+// 	    System.out.println("Exp1:");
+// 	    //System.out.println("Avg:"+avgExp1(transacCount, utilDb, em, pok, pok1));
+// 	    //TimeUnit.Seconds.sleep(15);
+
+// 	    timesExp1.add(avgExp1(transacCount, utilDb, pok, pok1));
+// 	    //TimeUnit.Seconds.sleep(15);
+	    
+// 	    System.out.println("Exp2:");
+// 	    //System.out.println("Avg:"+avgExp1(transacCount, utilDb, em, pok, pok1));
+// 	    timesExp1.add(avgExp2(transacCount, utilDb, pok, pok1));
+// 	    //TimeUnit.Seconds.sleep(15);
+
+	    
+// 	    System.out.println("Exp3:");
+// 	    //System.out.println("Avg:"+avgExp1(transacCount, utilDb, em, pok, pok1));
+// 	    timesExp1.add(avgExp3(transacCount, utilDb, pok, pok1));
+// 	    //TimeUnit.Seconds.sleep(15);
+
+// 	    System.out.println("Exp4:");
+// 	    //System.out.println("Avg:"+avgExp1(transacCount, utilDb, em, pok, pok1));
+// 	    timesExp1.add(avgExp4(transacCount, utilDb, pok, pok1));
+	    
+	    
+	    
+	    
+// 	    timesRecord1 = new String[timesExp1.size()];
+
+// 	    for(int i = 0; i < timesExp1.size(); i++) {
+// 	    	timesRecord1[i] = timesExp1.get(i).toString();
+// 	    }
+	    
+// 	    listDataSet.add(headerAux);
+// 	    listDataSet.add(timesRecord1);
+	    
+	    
+// 	    csvPath = "E:\\Downloads\\U-20220828T191257Z-001\\U\\bd2\\timesCSV\\"+transacCount+".csv";
+	    
+// 	    utilDb.saveToCsv(listDataSet, csvPath, true);
+// 	    System.out.println("ListaTimes: " + timesExp1);
+	    
+// //	    timesExp1.removeAll(timesExp1);
+// //	    //10000
+// //	    transacCount = 10000;
+// //	    System.out.println("Transações: " + transacCount);
+// //	    
+// //	    System.out.println("Exp1:");
+// //	    timesExp1.add(avgExp1(transacCount, utilDb, em, pok, pok1));	    
+// //	    
+// //	    System.out.println("Exp2:");
+// //	    timesExp1.add(avgExp2(transacCount, utilDb, em, pok, pok1));
+// //	    
+// //	    
+// //	    System.out.println("Exp3:");
+// //	    timesExp1.add(avgExp3(transacCount, utilDb, em, pok, pok1));
+// //	    
+// //	    System.out.println("Exp4:");
+// //	    timesExp1.add(avgExp4(transacCount, utilDb, em, pok, pok1));
+// //	    
+// //	    
 //	    
 //	    
 //	    timesRecord1 = new String[timesExp1.size()];

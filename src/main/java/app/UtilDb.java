@@ -176,8 +176,43 @@ public class UtilDb {
 				em.persist(pokAux);
 				
 			}
+			//System.out.println("Salvando: "+ pokAux.getName()+"\n");
+
+			System.out.println("Salvando SHARED: "+ nameAux +"\n");
+			em.getTransaction().commit();
+	        
+			//System.out.println("Salvando: "+ pokAux.getName()+"\n");
 			
-			//System.out.println("Salvando SHARED: "+ nameAux +"\n");
+			//Fechar Conexão para evitar gargalo nas conexões
+			em.close();
+	       
+		});
+		
+		//emf.close();
+	}
+	public void updateShared1(Pokemon pok, int amount) {
+		//EntityManagerFactory emf = Persistence.createEntityManagerFactory("exemplo-jpa");
+		String name = pok.getName();
+		
+		IntStream.range(1,amount).boxed().parallel().forEach(i->{
+		
+			EntityManager em = this.emf.createEntityManager();
+		
+			String nameAux = "";
+			
+
+			em.getTransaction().begin();
+			Pokemon pokAux = em.find(Pokemon.class, i, LockModeType.PESSIMISTIC_READ);
+			nameAux = name + i;
+			//Add isso em todos
+			if(pokAux != null) {
+				pokAux.setName(nameAux);
+				em.persist(pokAux);
+				
+			}
+			//System.out.println("Salvando: "+ pokAux.getName()+"\n");
+
+			System.out.println("Salvando SHARED1: "+ nameAux +"\n");
 			em.getTransaction().commit();
 	        
 			//System.out.println("Salvando: "+ pokAux.getName()+"\n");
@@ -216,9 +251,10 @@ public class UtilDb {
 	}
 	//Com lock
 	public void buscaShared(Pokemon pok, int amount) {
+		System.out.println("WTF");
 		//EntityManagerFactory emf = Persistence.createEntityManagerFactory("exemplo-jpa");
 		String name = pok.getName();
-		
+		System.out.println("Buscando1: "+ pok.getName()+"\n");
 		
 		IntStream.range(1,amount).boxed().parallel().forEach(i->{
 			
@@ -228,8 +264,10 @@ public class UtilDb {
 			
 
 			em.getTransaction().begin();
-		
 			Pokemon pokAux = em.find(Pokemon.class, i, LockModeType.PESSIMISTIC_READ);
+			//Pokemon pokAux = em.find(Pokemon.class, i);
+			//em.persist(em);
+			System.out.println("Buscando SHARED: "+ pokAux.getName()+"\n");
 
 			
 			
