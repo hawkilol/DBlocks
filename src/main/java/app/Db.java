@@ -36,27 +36,27 @@ public class Db {
     	//Escrita
     	//futureTask = threadpool.submit(() ->  utilDb.updateShared(pok1, transacCount/2));
 
-		new Thread(new Runnable() {
-			public void run() {
-				System.out.println("Look ma, no hands");
-				//utilDb.buscaShared(pok1, transacCount/2);
-				utilDb.updateShared1(pok1, transacCount/2);
-			}
-		}).start();
+		// new Thread(new Runnable() {
+		// 	public void run() {
+		// 		System.out.println("Look ma, no hands");
+		// 		//utilDb.buscaShared(pok1, transacCount/2);
+		// 		utilDb.updateShared1(pok1, transacCount/2);
+		// 	}
+		// }).start();
 		
-		new Thread(new Runnable() {
-			public void run() {
-				System.out.println("Look at me, look at me...");
-				utilDb.updateShared(pok1, transacCount/2);
-			}
-		}).start();
+		// new Thread(new Runnable() {
+		// 	public void run() {
+		// 		System.out.println("Look at me, look at me...");
+		// 		utilDb.updateShared(pok1, transacCount/2);
+		// 	}
+		// }).start();
 		for (int i = 0; i<Threads; i++) {
 	    	//futureTask = threadpool.submit(() ->  utilDb.update(em, pok1, 10));
-//	    	//Primeiro Nivel(100% das trans pedem shared lock)
-//	    	//Consulta
-//	    	futureTask = threadpool.submit(() ->  utilDb.buscaShared(pok1, transacCount/2));
-//	    	//Escrita
-//	    	futureTask = threadpool.submit(() ->  utilDb.updateShared(pok1, transacCount/2));
+	    	//Primeiro Nivel(100% das trans pedem shared lock)
+	    	//Consulta
+	    	futureTask = threadpool.submit(() ->  utilDb.updateShared(pok1, transacCount/2));
+	    	//Escrita
+	    	futureTask = threadpool.submit(() ->  utilDb.updateShared1(pok1, transacCount/2));
 	    }
 		while (!futureTask.isDone()) {
 	    	//System.out.println("ExpPasso1 is not finished yet..."); 
@@ -83,6 +83,20 @@ public class Db {
 	    //threadpool.awaitTermination(1, TimeUnit.SECONDS);
 	    Future<?> futureTask = threadpool.submit(() -> System.out.println("HI"));
 	    long startTime = System.nanoTime();
+		new Thread(new Runnable() {
+			public void run() {
+				System.out.println("Look ma, no hands");
+				//utilDb.buscaShared(pok1, transacCount/2);
+				utilDb.updateShared1(pok1, transacCount/2);
+			}
+		}).start();
+		
+		new Thread(new Runnable() {
+			public void run() {
+				System.out.println("Look at me, look at me...");
+				utilDb.updateShared(pok1, transacCount/2);
+			}
+		}).start();
 	    for (int i = 1; i<Threads; i++) {
 	    	
 	    	//Segundo Nivel(Só trans de leitura pedem shared lock)
